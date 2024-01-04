@@ -1,0 +1,129 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Sign UP {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="container position-sticky z-index-sticky top-1">
+  <div class="row">
+    <div class="col-12">
+
+      {% include "includes/navigation-fullscreen.html" %}
+
+    </div>
+  </div>
+</div>
+
+<main class="main-content  mt-0">
+
+  <section class="min-vh-100 mb-8">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+      style="background-image: url('{{ config.ASSETS_ROOT }}/img/curved-images/curved14.jpg');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-6">Welcome!</h1>
+            <!-- <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+        <div class="col-xl-8 col-lg-9 col-md-11 mx-auto">
+          <div class="card z-index-0">
+            <div class="card-header text-center pt-4">
+              <h5>Register now</h5>
+            </div>
+            <div class="card-body">
+              <form action="" role="form text-left" id="signUpForm" method="POST">
+                <div class="row">
+                  <div class="mb-3 col-6">
+                    <input type="text" id="Name" class="form-control is-invalid" onchange="validateField(this, 3, 20, 'length of username must be between 3 and 20')"
+                      placeholder="Name" aria-label="Name" aria-describedby="name-addon">
+                  </div>
+                  <div class="mb-3 col-6">
+                    <input type="text" id="Lastname" class="form-control is-invalid" onchange="validateField(this, 3, 20, 'length of lastname must be between 3 and 20')"
+                      placeholder="Lastname" aria-label="Lastname" aria-describedby="Lastname-addon">
+                  </div>
+                </div>
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                <div class="mb-3">
+                  <input type="email" id="Email" class="form-control is-invalid" onchange="validateEmail()"
+                    placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                </div>
+
+                {% if current_user.has_role('Super-Admin') %}
+                <div class="row">
+                  <label for="customer-select">Select a Customer:</label>
+                  <select id="customer-select" name="customer">
+                    {% for customer in customers %}
+                    <option value="{{ customer.id }}">{{ customer.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+
+                <div class="row">
+                  <div class="mb-3 col-6">
+                    <input type="text" id="Company" class="form-control is-invalid" onchange="validateField(this, 3, 20, 'length of company name must be between 3 and 20')"
+                      placeholder="Company" aria-label="Company" aria-describedby="Company-addon">
+                  </div>
+                  <div class="mb-3 col-6">
+                    <input type="text" id="RIF" class="form-control is-invalid" onchange="validateField(this, 0, 20, 'RIF cannot be empty or have more than 20 characteres')"
+                      style="text-transform:uppercase" placeholder="Company Identification" aria-label="Company Identification" aria-describedby="Company Identification-addon">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="mb-3 col-6">
+                    <input type="password" id="Password" class="form-control is-invalid" onkeyup="validateField(this, 5, 10, 'length of password must be between 5 and 10 characteres')"
+                      placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                  </div>
+                  <div class="mb-3 col-6">
+                    <input type="password" id="CPassword" class="form-control is-invalid"
+                      onkeyup="validateConfirmPassword()" placeholder="Confirm Password" aria-label="CPassword"
+                      aria-describedby="cpassword-addon">
+                  </div>
+                </div>
+
+                <div class="form-check form-check-info text-left">
+                  <input class="form-check-input" type="checkbox" value="" id="TermsAndConditionsCheck" checked>
+                  <label class="form-check-label" for="TermsAndConditionsCheck">
+                    I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                    <div class="termsAndConditionsError" style="color:green;" id="termsAndConditionsError"></div>
+                  </label>
+                </div>
+                <div class="text-center">
+                  <button type="button" onclick="signUpAdd()" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign
+                    up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% include "includes/footer-fullscreen.html" %}
+
+</main>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script src="static\assets\js\form-validation.js"></script>
+
+
+
+{% endblock javascripts %}

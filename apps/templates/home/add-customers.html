@@ -1,0 +1,96 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Sign UP {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="container position-sticky z-index-sticky top-1">
+  <div class="row">
+    <div class="col-12">
+
+      {% include "includes/navigation-fullscreen.html" %}
+
+    </div>
+  </div>
+</div>
+
+<main class="main-content  mt-0">
+
+  <section class="min-vh-100 mb-8">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+      style="background-image: url('{{ config.ASSETS_ROOT }}/img/curved-images/curved14.jpg');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-6">Welcome!</h1>
+            <!-- <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+        <div class="col-xl-8 col-lg-9 col-md-11 mx-auto">
+          <div class="card z-index-0">
+            <div class="card-header text-center pt-4">
+              <h5>Create Customer</h5>
+            </div>
+            <div class="card-body">
+              <form action="" role="form text-left" id="signUpForm" method="POST">
+
+
+                <div class="row">
+                  <div class="mb-3 col-6">
+                    <input type="text" id="Company" class="form-control is-invalid" onchange="validateField(this, 3, 20, 'length of company name must be between 3 and 20')"
+                      placeholder="Company Name" aria-label="Company" aria-describedby="Company-addon">
+                  </div>
+                  <div class="mb-3 col-6">
+                    <input type="text" id="CompanyId" class="form-control is-invalid" onchange="validateField(this, 0, 20, 'CompanyId cannot be empty or have more than 20 characteres')"
+                      style="text-transform:uppercase" placeholder="Company Identification" aria-label="CompanyId" aria-describedby="CompanyId-addon">
+                  </div>
+                </div>
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                <div class="row">
+                  <div class="mb-3 col-6">
+                    <input type="text" id="contact" class="form-control is-invalid" onchange="validateField(this, 3, 20, 'length of contact must be between 3 and 20')"
+                      placeholder="Contact Information" aria-label="contact" aria-describedby="contact-addon">
+                  </div>
+                  <div class="mb-3 col-6">
+                    <input type="text" id="telephone" class="form-control is-invalid" onchange="validateField(this, 3, 20, 'length of telephone must be between 3 and 20')"
+                      placeholder="Telephone" aria-label="telephone" aria-describedby="telephone-addon">
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="button" onclick="createCustomer()" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign
+                    up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% include "includes/footer-fullscreen.html" %}
+
+</main>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script src="static\assets\js\form-validation.js"></script>
+
+
+
+{% endblock javascripts %}
